@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тюнер Сопілки</title>
+    <title>Тюнер Сопилки</title>
     <style>
         * {
             margin: 0;
@@ -43,7 +43,7 @@
         }
 
         .tab {
-            padding: 15px 30px;
+            padding: 12px 24px;
             background: none;
             border: none;
             cursor: pointer;
@@ -67,55 +67,46 @@
             display: block;
         }
 
-        .notes-info {
+        .holes-reference {
             background: #f8f9fa;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
         }
 
-        .notes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .note-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            border: 2px solid #667eea;
-        }
-
-        .note-number {
-            font-size: 24px;
-            font-weight: bold;
+        .holes-reference h3 {
             color: #667eea;
+            margin-bottom: 15px;
         }
 
-        .note-name {
-            font-size: 18px;
-            color: #666;
-            margin-top: 5px;
+        .hole-item {
+            display: inline-block;
+            margin: 5px 10px;
+            padding: 8px 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .hole-item strong {
+            color: #667eea;
         }
 
         .controls {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
             margin-bottom: 20px;
         }
 
         .control-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         label {
-            font-weight: bold;
+            font-weight: 600;
             color: #555;
         }
 
@@ -123,7 +114,7 @@
             padding: 12px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 14px;
             transition: all 0.3s;
         }
 
@@ -137,7 +128,9 @@
             color: white;
             border: none;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         button:hover {
@@ -150,23 +143,24 @@
             transform: translateY(0);
         }
 
-        .result-box {
+        .melody-output {
             background: #f8f9fa;
             padding: 20px;
             border-radius: 10px;
-            margin-top: 20px;
-            min-height: 100px;
+            margin: 20px 0;
+            min-height: 150px;
         }
 
-        .track-display {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
-            border-left: 4px solid #667eea;
+        .melody-output h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .melody-text {
             font-family: 'Courier New', monospace;
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1.8;
+            color: #333;
             word-wrap: break-word;
         }
 
@@ -175,10 +169,11 @@
         }
 
         .track-item {
-            background: #f8f9fa;
+            background: white;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -187,57 +182,92 @@
         }
 
         .track-name {
-            font-weight: bold;
+            font-weight: 600;
             color: #667eea;
             flex: 1;
         }
 
         .track-buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .track-buttons button {
-            padding: 8px 16px;
-            font-size: 14px;
+            padding: 8px 15px;
+            font-size: 12px;
         }
 
         .btn-delete {
-            background: #dc3545;
+            background: #e74c3c;
         }
 
         .btn-delete:hover {
-            background: #c82333;
+            background: #c0392b;
         }
 
         .btn-rename {
-            background: #ffc107;
+            background: #f39c12;
         }
 
         .btn-rename:hover {
-            background: #e0a800;
+            background: #d68910;
         }
 
-        .composer {
+        .composer-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .note-builder {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .note-builder > div {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 5px;
+        }
+
+        .note-builder input {
+            width: 100px;
+        }
+
+        .note-builder button {
+            padding: 10px 20px;
+        }
+
+        .composed-melody {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            min-height: 80px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
         }
 
         .hole-selector {
             display: flex;
-            gap: 10px;
+            gap: 5px;
             flex-wrap: wrap;
         }
 
         .hole-btn {
-            width: 60px;
-            height: 60px;
-            font-size: 20px;
-            font-weight: bold;
+            padding: 8px 12px;
             background: white;
-            border: 3px solid #667eea;
+            border: 2px solid #667eea;
             color: #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            min-width: 40px;
         }
 
         .hole-btn.selected {
@@ -245,332 +275,305 @@
             color: white;
         }
 
-        .note-list {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+        .audio-section {
+            background: #e8f4f8;
             padding: 15px;
-            min-height: 100px;
-            font-family: 'Courier New', monospace;
-        }
-
-        .note-item {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 5px;
-            margin: 5px;
-            cursor: pointer;
-        }
-
-        .note-item:hover {
-            background: #5568d3;
-        }
-
-        .recorder-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .record-btn {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: #dc3545;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .record-btn.recording {
-            background: #c82333;
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .audio-player {
+            border-radius: 8px;
             margin-top: 15px;
-            width: 100%;
         }
 
-        .empty-state {
-            text-align: center;
-            color: #999;
-            padding: 40px;
+        .audio-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .audio-controls audio {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .file-input-label:hover {
+            background: #2980b9;
+        }
+
+        .audio-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎵 Тюнер Сопілки</h1>
+        <h1>Тюнер Сопилки</h1>
+
+        <div class="holes-reference">
+            <h3>Соответствие дырок и нот:</h3>
+            <div class="hole-item"><strong>1:</strong> Ре#6</div>
+            <div class="hole-item"><strong>2:</strong> Фа6</div>
+            <div class="hole-item"><strong>3:</strong> Фа#6</div>
+            <div class="hole-item"><strong>4:</strong> Соль#6</div>
+            <div class="hole-item"><strong>5:</strong> Ре#7</div>
+            <div class="hole-item"><strong>@:</strong> Фа#6 (без закрытия дырок)</div>
+        </div>
 
         <div class="tabs">
-            <button class="tab active" onclick="switchTab('generator')">Генератор Мелодій</button>
-            <button class="tab" onclick="switchTab('composer')">Створити Трек</button>
-            <button class="tab" onclick="switchTab('saved')">Збережені Треки</button>
+            <button class="tab active" onclick="switchTab('generator')">Генератор Мелодий</button>
+            <button class="tab" onclick="switchTab('composer')">Создать Свой Трек</button>
+            <button class="tab" onclick="switchTab('tracks')">Сохранённые Треки</button>
         </div>
 
-        <div class="notes-info">
-            <h3>Відповідність дірок і нот:</h3>
-            <div class="notes-grid">
-                <div class="note-card">
-                    <div class="note-number">1</div>
-                    <div class="note-name">Ре#6</div>
-                </div>
-                <div class="note-card">
-                    <div class="note-number">2</div>
-                    <div class="note-name">Фа6</div>
-                </div>
-                <div class="note-card">
-                    <div class="note-number">3</div>
-                    <div class="note-name">Фа#6</div>
-                </div>
-                <div class="note-card">
-                    <div class="note-number">4</div>
-                    <div class="note-name">Соль#6</div>
-                </div>
-                <div class="note-card">
-                    <div class="note-number">5</div>
-                    <div class="note-name">Ре#7</div>
-                </div>
-                <div class="note-card">
-                    <div class="note-number">@</div>
-                    <div class="note-name">Відкрито<br>(Фа#6)</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Генератор -->
         <div id="generator" class="tab-content active">
             <div class="controls">
                 <div class="control-group">
-                    <label>Складність:</label>
+                    <label>Сложность:</label>
                     <select id="complexity">
-                        <option value="easy">Легка</option>
-                        <option value="medium">Середня</option>
-                        <option value="hard">Складна</option>
+                        <option value="easy">Лёгкая</option>
+                        <option value="medium" selected>Средняя</option>
+                        <option value="hard">Сложная</option>
                     </select>
                 </div>
                 <div class="control-group">
-                    <label>Кількість нот:</label>
+                    <label>Количество нот:</label>
                     <input type="number" id="noteCount" value="8" min="4" max="32">
                 </div>
                 <div class="control-group">
-                    <label>Формат:</label>
-                    <select id="format">
-                        <option value="numbers">Цифри (дірки)</option>
-                        <option value="notes">Ноти</option>
+                    <label>Формат вывода:</label>
+                    <select id="outputFormat">
+                        <option value="numbers">Номера дырок</option>
+                        <option value="notes">Названия нот</option>
                     </select>
                 </div>
             </div>
 
-            <button onclick="generateMelody()" style="width: 100%; padding: 15px; font-size: 18px;">
-                🎼 Згенерувати Мелодію
+            <button onclick="generateMelody()" style="width: 100%; padding: 15px; font-size: 18px; margin-bottom: 20px;">
+                🎼 Сгенерировать Мелодию
             </button>
 
-            <div class="result-box">
-                <h3>Згенерована мелодія:</h3>
-                <div id="generatedTrack" class="track-display">
-                    Натисніть кнопку для генерації мелодії
-                </div>
+            <div class="melody-output">
+                <h3>Сгенерированная мелодия:</h3>
+                <div id="melodyDisplay" class="melody-text">Нажмите кнопку для генерации мелодии</div>
             </div>
 
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <input type="text" id="trackName" placeholder="Назва треку" style="flex: 1;">
-                <button onclick="saveGeneratedTrack()">💾 Зберегти Трек</button>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="trackName" placeholder="Название трека" style="flex: 1; min-width: 200px;">
+                <button onclick="saveTrack()">💾 Сохранить Трек</button>
             </div>
         </div>
 
         <div id="composer" class="tab-content">
-            <div class="composer">
-                <div>
-                    <h3>Виберіть дірки:</h3>
-                    <div class="hole-selector">
-                        <button class="hole-btn" onclick="toggleHole(1)">1</button>
-                        <button class="hole-btn" onclick="toggleHole(2)">2</button>
-                        <button class="hole-btn" onclick="toggleHole(3)">3</button>
-                        <button class="hole-btn" onclick="toggleHole(4)">4</button>
-                        <button class="hole-btn" onclick="toggleHole(5)">5</button>
-                        <button class="hole-btn" onclick="toggleHole('@')">@</button>
-                    </div>
-                </div>
-
-                <div class="controls">
-                    <div class="control-group">
-                        <label>Тривалість (сек):</label>
-                        <input type="number" id="duration" value="1" min="0.1" max="10" step="0.1">
-                    </div>
-                    <div class="control-group">
-                        <label>Пауза після (сек):</label>
-                        <input type="number" id="pause" value="0" min="0" max="5" step="0.1">
-                    </div>
-                </div>
-
-                <button onclick="addNote()">➕ Додати Ноту</button>
-                <button onclick="clearComposition()" class="btn-delete">🗑️ Очистити</button>
-
-                <div>
-                    <h3>Ваша композиція:</h3>
-                    <div id="compositionDisplay" class="note-list">
-                        Порожньо
-                    </div>
-                </div>
-
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="compositionName" placeholder="Назва композиції" style="flex: 1;">
-                    <button onclick="saveComposition()">💾 Зберегти</button>
-                </div>
-
-                <div class="recorder-section">
-                    <h3>🎤 Запис виконання:</h3>
-                    <p style="color: #666; margin-bottom: 15px;">Запишіть, як ви граєте цей трек</p>
-                    <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
-                        <button id="recordBtn" class="record-btn" onclick="toggleRecording()">⏺️</button>
-                        <div>
-                            <div id="recordStatus">Натисніть для початку запису</div>
-                            <div id="recordTimer" style="font-size: 24px; font-weight: bold; color: #667eea; margin-top: 10px;">00:00</div>
+            <div class="composer-section">
+                <h3>Создание собственной мелодии:</h3>
+                
+                <div class="note-builder">
+                    <div>
+                        <label>Выберите дырку(и):</label>
+                        <div class="hole-selector" id="holeSelector">
+                            <button class="hole-btn" onclick="toggleHole(1)">1</button>
+                            <button class="hole-btn" onclick="toggleHole(2)">2</button>
+                            <button class="hole-btn" onclick="toggleHole(3)">3</button>
+                            <button class="hole-btn" onclick="toggleHole(4)">4</button>
+                            <button class="hole-btn" onclick="toggleHole(5)">5</button>
+                            <button class="hole-btn" onclick="toggleHole('@')">@</button>
                         </div>
                     </div>
-                    <div id="audioPlayback" style="display: none; margin-top: 20px;">
-                        <h4>Ваш запис:</h4>
-                        <audio id="audioPlayer" class="audio-player" controls></audio>
+                    <div>
+                        <label>Длительность (сек):</label>
+                        <input type="number" id="noteDuration" value="1" min="0.1" max="10" step="0.1">
                     </div>
+                    <div>
+                        <label>Задержка (сек):</label>
+                        <input type="number" id="noteDelay" value="0" min="0" max="5" step="0.1">
+                    </div>
+                    <div>
+                        <button onclick="addNote()">➕ Добавить Ноту</button>
+                        <button onclick="clearComposed()" style="background: #e74c3c;">🗑️ Очистить</button>
+                    </div>
+                </div>
+
+                <div class="composed-melody" id="composedMelody">
+                    Ваша мелодия появится здесь...
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                    <input type="text" id="composedTrackName" placeholder="Название трека" style="flex: 1; min-width: 200px;">
+                    <button onclick="saveComposedTrack()">💾 Сохранить Трек</button>
                 </div>
             </div>
         </div>
 
-        <div id="saved" class="tab-content">
+        <div id="tracks" class="tab-content">
             <div class="saved-tracks">
-                <h2>Збережені Треки</h2>
+                <h3>Сохранённые треки:</h3>
                 <div id="tracksList"></div>
             </div>
         </div>
     </div>
 
     <script>
-        const notes = {
-            '1': 'Ре#6',
-            '2': 'Фа6',
-            '3': 'Фа#6',
-            '4': 'Соль#6',
-            '5': 'Ре#7',
+        const NOTES = {
+            1: 'Ре#6',
+            2: 'Фа6',
+            3: 'Фа#6',
+            4: 'Соль#6',
+            5: 'Ре#7',
             '@': 'Фа#6'
         };
 
+        let currentMelody = '';
+        let composedMelody = [];
         let selectedHoles = [];
-        let composition = [];
-        let currentGeneratedTrack = '';
-        let mediaRecorder = null;
-        let audioChunks = [];
-        let recordingStartTime = 0;
-        let timerInterval = null;
-        let currentAudioBlob = null;
+        let tracks = {};
 
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        function loadTracks() {
+            const saved = getCookie('sopilkaTracks');
+            if (saved) {
+                try {
+                    tracks = JSON.parse(saved);
+                } catch (e) {
+                    tracks = {};
+                }
+            }
+            displayTracks();
+        }
+
+        function saveTracks() {
+            setCookie('sopilkaTracks', JSON.stringify(tracks), 365);
+        }
+
+        function setCookie(name, value, days) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+            document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/';
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + '=';
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             
             event.target.classList.add('active');
-            document.getElementById(tabName).classList.add('active');
-            
-            if (tabName === 'saved') {
-                displayTracks();
-            }
+            document.getElementById(tab).classList.add('active');
         }
 
         function generateMelody() {
             const complexity = document.getElementById('complexity').value;
             const noteCount = parseInt(document.getElementById('noteCount').value);
-            const format = document.getElementById('format').value;
-            
+            const format = document.getElementById('outputFormat').value;
+
             let melody = [];
-            let holes = ['1', '2', '3', '4', '5', '@'];
-            
+            let maxSimultaneous = complexity === 'easy' ? 1 : complexity === 'medium' ? 2 : 3;
+            let includeNoHoles = complexity !== 'easy';
+
             for (let i = 0; i < noteCount; i++) {
-                let note = {};
-                
-                let simultaneousCount = 1;
-                if (complexity === 'medium' && Math.random() > 0.7) {
-                    simultaneousCount = 2;
-                } else if (complexity === 'hard' && Math.random() > 0.6) {
-                    simultaneousCount = Math.floor(Math.random() * 3) + 1;
-                }
-                
-                let selectedHoles = [];
-                for (let j = 0; j < simultaneousCount; j++) {
-                    let hole = holes[Math.floor(Math.random() * holes.length)];
-                    if (!selectedHoles.includes(hole)) {
-                        selectedHoles.push(hole);
+                let simultaneous = Math.floor(Math.random() * maxSimultaneous) + 1;
+                let holes = [];
+
+                if (includeNoHoles && Math.random() < 0.15) {
+                    holes = ['@'];
+                } else {
+                    for (let j = 0; j < simultaneous; j++) {
+                        let hole;
+                        do {
+                            hole = Math.floor(Math.random() * 5) + 1;
+                        } while (holes.includes(hole));
+                        holes.push(hole);
                     }
+                    holes.sort((a, b) => a - b);
                 }
-                
-                note.holes = selectedHoles.sort();
-                
-                let maxDuration = complexity === 'easy' ? 2 : complexity === 'medium' ? 3 : 4;
-                note.duration = (Math.random() * maxDuration + 0.5).toFixed(1);
-                
-                let maxPause = complexity === 'easy' ? 1 : complexity === 'medium' ? 2 : 3;
-                note.pause = Math.random() > 0.5 ? (Math.random() * maxPause).toFixed(1) : 0;
-                
+
+                let duration = (Math.random() * 3 + 0.5).toFixed(1);
+                let delay = Math.random() < 0.3 ? (Math.random() * 2).toFixed(1) : 0;
+
+                let note = {
+                    holes: holes,
+                    duration: duration,
+                    delay: delay
+                };
+
                 melody.push(note);
             }
-            
-            currentGeneratedTrack = formatMelody(melody, format);
-            document.getElementById('generatedTrack').textContent = currentGeneratedTrack;
+
+            currentMelody = formatMelody(melody, format);
+            document.getElementById('melodyDisplay').innerHTML = currentMelody;
         }
 
         function formatMelody(melody, format) {
-            let result = [];
-            
-            melody.forEach(note => {
-                let noteStr = '';
-                
+            let result = '';
+            melody.forEach((note, index) => {
+                let holesStr;
                 if (note.holes.length === 1) {
-                    if (format === 'numbers') {
-                        noteStr = `${note.holes[0]}{${note.duration}}`;
-                    } else {
-                        noteStr = `${notes[note.holes[0]]}{${note.duration}}`;
-                    }
+                    holesStr = format === 'numbers' ? note.holes[0] : NOTES[note.holes[0]];
                 } else {
-                    let holesStr = format === 'numbers' 
-                        ? note.holes.join(', ')
-                        : note.holes.map(h => notes[h]).join(', ');
-                    noteStr = `[${holesStr}]{${note.duration}}`;
+                    let items = note.holes.map(h => format === 'numbers' ? h : NOTES[h]);
+                    holesStr = '[' + items.join(', ') + ']';
                 }
+
+                result += holesStr + '{' + note.duration + '}';
                 
-                if (note.pause > 0) {
-                    noteStr += `, (${note.pause})`;
+                if (parseFloat(note.delay) > 0) {
+                    result += ', (' + note.delay + ')';
                 }
-                
-                result.push(noteStr);
+
+                if (index < melody.length - 1) {
+                    result += ', ';
+                }
             });
-            
-            return result.join(', ');
+            return result;
         }
 
-        function saveGeneratedTrack() {
+        function saveTrack() {
             const name = document.getElementById('trackName').value.trim();
             if (!name) {
-                alert('Будь ласка, введіть назву треку!');
+                alert('Введите название трека!');
                 return;
             }
-            
-            if (!currentGeneratedTrack) {
-                alert('Спочатку згенеруйте мелодію!');
+            if (!currentMelody) {
+                alert('Сначала сгенерируйте мелодию!');
                 return;
             }
-            
-            saveToCookies(name, currentGeneratedTrack);
+
+            tracks[name] = {
+                melody: currentMelody,
+                created: new Date().toLocaleString('ru-RU')
+            };
+            saveTracks();
+            displayTracks();
             document.getElementById('trackName').value = '';
-            alert('Трек збережено!');
+            alert('Трек сохранён!');
         }
 
         function toggleHole(hole) {
@@ -578,15 +581,19 @@
             if (index > -1) {
                 selectedHoles.splice(index, 1);
             } else {
-                selectedHoles.push(hole);
+                if (hole === '@') {
+                    selectedHoles = ['@'];
+                } else {
+                    selectedHoles = selectedHoles.filter(h => h !== '@');
+                    selectedHoles.push(hole);
+                }
             }
-            
             updateHoleButtons();
         }
 
         function updateHoleButtons() {
             document.querySelectorAll('.hole-btn').forEach(btn => {
-                const hole = btn.textContent.trim();
+                const hole = btn.textContent === '@' ? '@' : parseInt(btn.textContent);
                 if (selectedHoles.includes(hole)) {
                     btn.classList.add('selected');
                 } else {
@@ -597,225 +604,155 @@
 
         function addNote() {
             if (selectedHoles.length === 0) {
-                alert('Виберіть хоча б одну дірку!');
+                alert('Выберите хотя бы одну дырку!');
                 return;
             }
-            
-            const duration = document.getElementById('duration').value;
-            const pause = document.getElementById('pause').value;
-            
-            composition.push({
+
+            const duration = document.getElementById('noteDuration').value;
+            const delay = document.getElementById('noteDelay').value;
+
+            let note = {
                 holes: [...selectedHoles],
                 duration: duration,
-                pause: pause
-            });
-            
-            selectedHoles = [];
-            updateHoleButtons();
-            displayComposition();
-        }
-
-        function displayComposition() {
-            const display = document.getElementById('compositionDisplay');
-            
-            if (composition.length === 0) {
-                display.innerHTML = 'Порожньо';
-                return;
-            }
-            
-            display.innerHTML = '';
-            composition.forEach((note, index) => {
-                const noteEl = document.createElement('span');
-                noteEl.className = 'note-item';
-                
-                let noteText = note.holes.length === 1 
-                    ? `${note.holes[0]}{${note.duration}}`
-                    : `[${note.holes.join(', ')}]{${note.duration}}`;
-                
-                if (note.pause > 0) {
-                    noteText += `, (${note.pause})`;
-                }
-                
-                noteEl.textContent = noteText;
-                noteEl.onclick = () => removeNote(index);
-                noteEl.title = 'Клікніть для видалення';
-                display.appendChild(noteEl);
-            });
-        }
-
-        function removeNote(index) {
-            composition.splice(index, 1);
-            displayComposition();
-        }
-
-        function clearComposition() {
-            composition = [];
-            selectedHoles = [];
-            updateHoleButtons();
-            displayComposition();
-        }
-
-        function saveComposition() {
-            const name = document.getElementById('compositionName').value.trim();
-            if (!name) {
-                alert('Будь ласка, введіть назву композиції!');
-                return;
-            }
-            
-            if (composition.length === 0) {
-                alert('Спочатку створіть композицію!');
-                return;
-            }
-            
-            const trackStr = formatMelody(composition, 'numbers');
-            saveToCookies(name, trackStr, currentAudioBlob);
-            document.getElementById('compositionName').value = '';
-            alert('Композицію збережено!');
-        }
-
-        function saveToCookies(name, track, audioBlob = null) {
-            let tracks = JSON.parse(localStorage.getItem('sopilkaTracks') || '[]');
-            
-            const trackData = {
-                name: name,
-                track: track,
-                date: new Date().toISOString()
+                delay: delay
             };
-            
-            if (audioBlob) {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    trackData.audio = reader.result;
-                    tracks.push(trackData);
-                    localStorage.setItem('sopilkaTracks', JSON.stringify(tracks));
-                };
-                reader.readAsDataURL(audioBlob);
-            } else {
-                tracks.push(trackData);
-                localStorage.setItem('sopilkaTracks', JSON.stringify(tracks));
+
+            composedMelody.push(note);
+            displayComposedMelody();
+            selectedHoles = [];
+            updateHoleButtons();
+        }
+
+        function displayComposedMelody() {
+            const format = 'numbers';
+            const melodyStr = formatMelody(composedMelody, format);
+            document.getElementById('composedMelody').innerHTML = melodyStr || 'Ваша мелодия появится здесь...';
+        }
+
+        function clearComposed() {
+            composedMelody = [];
+            selectedHoles = [];
+            updateHoleButtons();
+            displayComposedMelody();
+        }
+
+        function saveComposedTrack() {
+            const name = document.getElementById('composedTrackName').value.trim();
+            if (!name) {
+                alert('Введите название трека!');
+                return;
             }
+            if (composedMelody.length === 0) {
+                alert('Создайте мелодию!');
+                return;
+            }
+
+            const melodyStr = formatMelody(composedMelody, 'numbers');
+            tracks[name] = {
+                melody: melodyStr,
+                created: new Date().toLocaleString('ru-RU')
+            };
+            saveTracks();
+            displayTracks();
+            document.getElementById('composedTrackName').value = '';
+            clearComposed();
+            alert('Трек сохранён!');
         }
 
         function displayTracks() {
-            const tracksList = document.getElementById('tracksList');
-            const tracks = JSON.parse(localStorage.getItem('sopilkaTracks') || '[]');
-            
-            if (tracks.length === 0) {
-                tracksList.innerHTML = '<div class="empty-state">Немає збережених треків</div>';
+            const list = document.getElementById('tracksList');
+            list.innerHTML = '';
+
+            if (Object.keys(tracks).length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">Нет сохранённых треков</p>';
                 return;
             }
-            
-            tracksList.innerHTML = '';
-            tracks.forEach((track, index) => {
-                const trackItem = document.createElement('div');
-                trackItem.className = 'track-item';
+
+            for (let name in tracks) {
+                const track = tracks[name];
+                const div = document.createElement('div');
+                div.className = 'track-item';
                 
-                const content = document.createElement('div');
-                content.style.flex = '1';
-                
-                content.innerHTML = `
-                    <div class="track-name">${track.name}</div>
-                    <div class="track-display">${track.track}</div>
-                    ${track.audio ? `<audio controls style="margin-top: 10px; width: 100%;"><source src="${track.audio}" type="audio/webm"></audio>` : ''}
-                    <div style="color: #999; font-size: 12px; margin-top: 5px;">${new Date(track.date).toLocaleString('uk-UA')}</div>
+                const audio = track.audio ? `
+                    <div class="audio-section">
+                        <div class="audio-controls">
+                            <audio controls src="${track.audio}"></audio>
+                            <button onclick="deleteAudio('${name}')" class="btn-delete">Удалить аудио</button>
+                        </div>
+                    </div>
+                ` : `
+                    <div class="audio-section">
+                        <div class="file-input-wrapper">
+                            <input type="file" id="audio-${name}" accept="audio/*" onchange="uploadAudio('${name}', this)">
+                            <label for="audio-${name}" class="file-input-label">📁 Добавить аудио</label>
+                        </div>
+                        <div class="audio-info">Можно добавить аудиозапись игры этого трека</div>
+                    </div>
                 `;
-                
-                const buttons = document.createElement('div');
-                buttons.className = 'track-buttons';
-                buttons.innerHTML = `
-                    <button class="btn-rename" onclick="renameTrack(${index})">✏️ Перейменувати</button>
-                    <button class="btn-delete" onclick="deleteTrack(${index})">🗑️ Видалити</button>
+
+                div.innerHTML = `
+                    <div style="flex: 1;">
+                        <div class="track-name">${name}</div>
+                        <div style="font-size: 12px; color: #999; margin-top: 5px;">Создан: ${track.created}</div>
+                        <div style="font-family: 'Courier New', monospace; font-size: 13px; margin-top: 10px; color: #555;">
+                            ${track.melody}
+                        </div>
+                        ${audio}
+                    </div>
+                    <div class="track-buttons">
+                        <button onclick="renameTrack('${name}')" class="btn-rename">✏️ Переименовать</button>
+                        <button onclick="deleteTrack('${name}')" class="btn-delete">🗑️ Удалить</button>
+                    </div>
                 `;
-                
-                trackItem.appendChild(content);
-                trackItem.appendChild(buttons);
-                tracksList.appendChild(trackItem);
-            });
-        }
-
-        function deleteTrack(index) {
-            if (!confirm('Видалити цей трек?')) return;
-            
-            let tracks = JSON.parse(localStorage.getItem('sopilkaTracks') || '[]');
-            tracks.splice(index, 1);
-            localStorage.setItem('sopilkaTracks', JSON.stringify(tracks));
-            displayTracks();
-        }
-
-        function renameTrack(index) {
-            const newName = prompt('Введіть нову назву:');
-            if (!newName) return;
-            
-            let tracks = JSON.parse(localStorage.getItem('sopilkaTracks') || '[]');
-            tracks[index].name = newName;
-            localStorage.setItem('sopilkaTracks', JSON.stringify(tracks));
-            displayTracks();
-        }
-
-        async function toggleRecording() {
-            if (mediaRecorder && mediaRecorder.state === 'recording') {
-                stopRecording();
-            } else {
-                startRecording();
+                list.appendChild(div);
             }
         }
 
-        async function startRecording() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                mediaRecorder = new MediaRecorder(stream);
-                audioChunks = [];
-                
-                mediaRecorder.ondataavailable = (event) => {
-                    audioChunks.push(event.data);
-                };
-                
-                mediaRecorder.onstop = () => {
-                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                    currentAudioBlob = audioBlob;
-                    const audioUrl = URL.createObjectURL(audioBlob);
-                    
-                    const audioPlayer = document.getElementById('audioPlayer');
-                    audioPlayer.src = audioUrl;
-                    document.getElementById('audioPlayback').style.display = 'block';
-                    
-                    stream.getTracks().forEach(track => track.stop());
-                };
-                
-                mediaRecorder.start();
-                document.getElementById('recordBtn').classList.add('recording');
-                document.getElementById('recordBtn').textContent = '⏹️';
-                document.getElementById('recordStatus').textContent = 'Запис...';
-                
-                recordingStartTime = Date.now();
-                timerInterval = setInterval(updateTimer, 100);
-                
-            } catch (error) {
-                alert('Помилка доступу до мікрофона: ' + error.message);
+        function uploadAudio(trackName, input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                tracks[trackName].audio = e.target.result;
+                saveTracks();
+                displayTracks();
+                alert('Аудио добавлено!');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function deleteAudio(trackName) {
+            if (confirm('Удалить аудиозапись?')) {
+                delete tracks[trackName].audio;
+                saveTracks();
+                displayTracks();
             }
         }
 
-        function stopRecording() {
-            if (mediaRecorder) {
-                mediaRecorder.stop();
-                document.getElementById('recordBtn').classList.remove('recording');
-                document.getElementById('recordBtn').textContent = '⏺️';
-                document.getElementById('recordStatus').textContent = 'Запис завершено';
-                
-                clearInterval(timerInterval);
+        function renameTrack(oldName) {
+            const newName = prompt('Введите новое название:', oldName);
+            if (newName && newName !== oldName) {
+                if (tracks[newName]) {
+                    alert('Трек с таким названием уже существует!');
+                    return;
+                }
+                tracks[newName] = tracks[oldName];
+                delete tracks[oldName];
+                saveTracks();
+                displayTracks();
             }
         }
 
-        function updateTimer() {
-            const elapsed = Date.now() - recordingStartTime;
-            const seconds = Math.floor(elapsed / 1000);
-            const milliseconds = Math.floor((elapsed % 1000) / 10);
-            
-            const display = `${String(seconds).padStart(2, '0')}:${String(milliseconds).padStart(2, '0')}`;
-            document.getElementById('recordTimer').textContent = display;
+        function deleteTrack(name) {
+            if (confirm('Удалить трек "' + name + '"?')) {
+                delete tracks[name];
+                saveTracks();
+                displayTracks();
+            }
         }
 
-        displayTracks();
+        loadTracks();
     </script>
 </body>
 </html>
