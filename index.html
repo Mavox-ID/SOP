@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тюнер Сопилки</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1e90ff">
     <style>
         * {
             margin: 0;
@@ -754,5 +756,12 @@
 
         loadTracks();
     </script>
+    <script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+  .then(() => console.log('Service Worker registred!'))
+  .catch(err => console.log('Error SW:', err));
+}
+</script>
 </body>
 </html>
