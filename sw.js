@@ -1,8 +1,8 @@
 const CACHE_NAME = 'my-site-cache-v1';
 const urlsToCache = [
   '/',
-  '/index.html',
-  '/icon.png',
+  'index.html',
+  'icon.png',
 ];
 
 self.addEventListener('install', event => {
