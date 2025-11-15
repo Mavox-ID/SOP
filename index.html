@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тюнер Сопилки</title>
+    <title>TubeSOP</title>
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e90ff">
@@ -327,11 +327,43 @@
             font-size: 14px;
             color: #555;
         }
+
+@media (max-width: 600px) {
+    .tabs {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        border-bottom: none;
+    }
+
+    .tab {
+        width: 100%;
+        text-align: center;
+        border-bottom: 3px solid transparent;
+    }
+
+    .tabs .tab:nth-child(1),
+    .tabs .tab:nth-child(2) {
+        width: 48%;
+        display: inline-block;
+    }
+
+    .tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .tabs .tab:nth-child(3) {
+        width: 80%;
+        margin-top: 5px;
+    }
+}
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Тюнер Сопилки</h1>
+        <h1>TubeSOP</h1>
 
         <div class="holes-reference">
             <h3>Соответствие дырок и нот:</h3>
